@@ -24,37 +24,32 @@ class TransactionList extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.purple,
+                      color: Theme.of(context).primaryColor,
                       width: 1,
                     ),
                   ),
                   child: Text(
                     '\$${transactions[index].amount.toStringAsFixed(2)}',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 20,
-                      color: Colors.purple,
-                    ),
+                    style: Theme.of(context).textTheme.headline5,
+                    // style: TextStyle(
+                    //   fontWeight: FontWeight.w600,
+                    //   fontSize: 20,
+                    //   color: Theme.of(context).primaryColor,
+                    // ),
                   ),
                 ),
                 Column(
                   children: [
                     Text(
                       transactions[index].title,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 16,
-                      ),
+                      style: Theme.of(context).textTheme.headline6,
                     ),
                     Text(
                       DateFormat.yMMMMd()
                           .add_jm()
                           .format(transactions[index].date),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Colors.grey[600],
-                      ),
-                    ),
+                      // style: Theme.of(context).textTheme.subtitle2,
+                    )
                   ],
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

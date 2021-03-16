@@ -14,9 +14,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        // based on one color different shades
+        primarySwatch: Colors.purple,
+        // primaryColor: Colors.indigo,
+        accentColor: Colors.amber,
+        fontFamily: 'FiraCode',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                fontSize: 20,
+              ),
+              headline5: TextStyle(
+                fontWeight: FontWeight.w700,
+                color: Colors.purple,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
       ),
       home: MyHomePage(),
     );
@@ -81,7 +103,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text(
+          'Personal Expenses',
+          // style: TextStyle(fontFamily: 'OpenSans'),
+        ),
         actions: [
           IconButton(
             icon: Icon(Icons.add),

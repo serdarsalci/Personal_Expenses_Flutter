@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
+class NewTransaction extends StatefulWidget {
   final Function addTx;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
 
   NewTransaction(this.addTx);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitData() {
     final enteredTitle = titleController.text;
@@ -17,7 +24,15 @@ class NewTransaction extends StatelessWidget {
 
     // return stops the function execution so addTx is not reached if returned !!!
 
-    addTx(enteredTitle, enteredAmount);
+    // in state class with this syntax can acces the methods and properties inside of state class;
+
+    //// widget gives access to the widged object this is important !!!!
+    widget.addTx(enteredTitle, enteredAmount);
+
+    // Clear input fields now unneccessary because of the Navigator
+    titleController.text = '';
+
+    Navigator.of(context).pop();
   }
 
   @override
