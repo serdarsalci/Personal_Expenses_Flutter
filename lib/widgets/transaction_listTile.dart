@@ -4,8 +4,9 @@ import 'package:intl/intl.dart';
 
 class TransactionListTile extends StatelessWidget {
   final List<Transaction> transactions;
+  final Function deleteTransaction;
 
-  TransactionListTile({this.transactions});
+  TransactionListTile(this.deleteTransaction, {this.transactions});
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +42,15 @@ class TransactionListTile extends StatelessWidget {
                   child: ListTile(
                     leading: CircleAvatar(
                       child: Padding(
-                        padding: const EdgeInsets.all(6.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: FittedBox(
-                          child: Text('\$${transactions[index].amount}'),
+                          child: Text(
+                            '\$${transactions[index].amount.toStringAsFixed(2)}',
+                            style: TextStyle(fontWeight: FontWeight.w500),
+                          ),
                         ),
                       ),
-                      radius: 30,
+                      radius: 35,
                     ),
                     title: Text(
                       transactions[index].title,
@@ -55,50 +59,19 @@ class TransactionListTile extends StatelessWidget {
                     subtitle: Text(
                       DateFormat.yMMMd().format(transactions[index].date),
                     ),
+                    trailing: IconButton(
+                      icon: Icon(
+                        Icons.delete,
+                        color: Theme.of(context).errorColor,
+                      ),
+                      tooltip: 'Delete',
+                      onPressed: () {
+                        deleteTransaction(transactions[index].id);
+                      },
+                    ),
                   ),
                 );
               },
-              // Card(
-              //   elevation: 3,
-              //   child: Row(
-              //     children: [
-              //       Container(
-              //         alignment: Alignment.centerRight,
-              //         width: 120,
-              //         padding: EdgeInsets.all(5),
-              //         margin:
-              //             EdgeInsets.symmetric(vertical: 20, horizontal: 10),
-              //         decoration: BoxDecoration(
-              //           border: Border.all(
-              //             color: Theme.of(context).primaryColor,
-              //             width: 1,
-              //           ),
-              //         ),
-              //         child: Text(
-              //           '\$${transactions[index].amount.toStringAsFixed(2)}',
-              //           style: Theme.of(context).textTheme.headline5,
-              //         ),
-              //       ),
-              //       Column(
-              //         children: [
-              //           Text(
-              //             transactions[index].title,
-              //             style: Theme.of(context).textTheme.headline6,
-              //           ),
-              //           Text(
-              //             DateFormat.yMMMMd()
-              //                 .add_jm()
-              //                 .format(transactions[index].date),
-              //             // style: Theme.of(context).textTheme.subtitle2,
-              //           )
-              //         ],
-              //         crossAxisAlignment: CrossAxisAlignment.start,
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       )
-              //     ],
-              //   ),
-              // );
-
               itemCount: transactions.length,
             ),
     );
