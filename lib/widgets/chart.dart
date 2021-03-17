@@ -42,19 +42,23 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     // print(groupTransactionValues);
     return Card(
-      elevation: 1,
-      margin: EdgeInsets.all(20),
-      child: Container(
+      elevation: 3,
+      margin: EdgeInsets.symmetric(vertical: 20, horizontal: 5),
+      child: Padding(
+        padding: EdgeInsets.all(10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: groupTransactionValues
               .map(
-                (data) => ChartBar(
-                    data['day'],
-                    data['amount'],
-                    totalSpending == 0
-                        ? 0
-                        : (data['amount'] as double) / totalSpending),
+                (data) => Flexible(
+                  fit: FlexFit.tight,
+                  child: ChartBar(
+                      data['day'],
+                      data['amount'],
+                      totalSpending == 0
+                          ? 0
+                          : (data['amount'] as double) / totalSpending),
+                ),
               )
               .toList(),
         ),

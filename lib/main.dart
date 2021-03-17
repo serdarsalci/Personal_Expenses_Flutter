@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:personal_expenses/widgets/new_transaction.dart';
+import 'package:personal_expenses/widgets/transaction_listTile.dart';
 
 import './widgets/chart.dart';
 import './models/transaction.dart';
@@ -128,7 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Chart(_recentTransactions),
-            TransactionList(transactions: _userTransactions),
+            TransactionListTile(transactions: _userTransactions),
           ],
         ),
       ),
