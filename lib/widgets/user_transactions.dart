@@ -5,6 +5,10 @@ import './transaction_list.dart';
 import '../models/transaction.dart';
 
 class UserTransactions extends StatefulWidget {
+  Function _deleteTransaction;
+
+  UserTransactions(this._deleteTransaction);
+
   @override
   _UserTransactionsState createState() => _UserTransactionsState();
 }
@@ -43,7 +47,8 @@ class _UserTransactionsState extends State<UserTransactions> {
     return Column(
       children: [
         NewTransaction(_addNewTransaction),
-        TransactionListTile(transactions: _userTransactions),
+        // TransactionListTile(_deleteTransaction,
+        //     transactions: _userTransactions),
       ],
     );
   }

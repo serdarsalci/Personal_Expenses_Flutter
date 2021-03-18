@@ -5,7 +5,7 @@ import 'package:personal_expenses/widgets/transaction_listTile.dart';
 
 import './widgets/chart.dart';
 import './models/transaction.dart';
-import './widgets/transaction_list.dart';
+import './alerts/deleteAlert.dart';
 
 void main() {
   runApp(MyApp());
@@ -61,19 +61,21 @@ class _MyHomePageState extends State<MyHomePage> {
   // final amountController = TextEditingController();
 
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 69.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Grocerys',
-    //   amount: 16.53,
-    //   date: DateTime.now(),
-    // )
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Grocerys',
+      amount: 16.53,
+      date: DateTime.now(),
+    )
   ];
+
+  // String idToDelete;
 
   List<Transaction> get _recentTransactions {
     return _userTransactions
@@ -110,7 +112,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void _deleteTransaction(String id) {
-    print('Delete called with id ${id}');
+    showAlertDialog(context, id, _deleteConfirmed);
+  }
+
+  void _deleteConfirmed(String id) {
     setState(() {
       _userTransactions.removeWhere((tx) => tx.id == id);
     });
