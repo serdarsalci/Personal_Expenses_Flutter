@@ -10,47 +10,48 @@ class TransactionListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      child: transactions.isEmpty
-          ? Column(
-              children: [
-                Text(
-                  'No transactions yet..',
-                  style: Theme.of(context).textTheme.headline4,
+    return transactions.isEmpty
+        ? Column(
+            children: [
+              Text(
+                'No transactions yet..',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: 300,
+                child: Image.asset(
+                  'assets/images/waiting.png',
+                  fit: BoxFit.cover,
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 300,
-                  child: Image.asset(
-                    'assets/images/waiting.png',
-                    fit: BoxFit.cover,
-                  ),
-                )
-              ],
-            )
-          : ListView.builder(
+              )
+            ],
+          )
+        : Container(
+            // color: Colors.purple.shade100,
+            child: ListView.builder(
               itemBuilder: (ctx, index) {
                 return Card(
+                  // color: Colors.amber.shade100,
                   elevation: 3,
                   margin: EdgeInsets.symmetric(
                     vertical: 8,
                     horizontal: 5,
                   ),
                   child: ListTile(
-                    leading: CircleAvatar(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: FittedBox(
-                          child: Text(
-                            '\$${transactions[index].amount.toStringAsFixed(2)}',
-                            style: TextStyle(fontWeight: FontWeight.w500),
-                          ),
+                    leading: Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 2, 8, 8),
+                      child: FittedBox(
+                        child: Text(
+                          '\$${transactions[index].amount.toStringAsFixed(2)}',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w700,
+                              fontSize: 26,
+                              color: Theme.of(context).primaryColor),
                         ),
                       ),
-                      radius: 35,
                     ),
                     title: Text(
                       transactions[index].title,
@@ -74,6 +75,6 @@ class TransactionListTile extends StatelessWidget {
               },
               itemCount: transactions.length,
             ),
-    );
+          );
   }
 }
