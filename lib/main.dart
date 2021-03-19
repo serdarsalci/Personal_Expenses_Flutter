@@ -24,6 +24,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.green,
+        ),
         // based on one color different shades
         primarySwatch: Colors.purple,
         // primaryColor: Colors.indigo,
@@ -67,18 +70,18 @@ class _MyHomePageState extends State<MyHomePage> {
   // final amountController = TextEditingController();
 
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 69.99,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Grocerys',
-    //   amount: 16.53,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.99,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Grocerys',
+      amount: 16.53,
+      date: DateTime.now(),
+    ),
     // Transaction(
     //   id: 't3',
     //   title: 'Pants',
