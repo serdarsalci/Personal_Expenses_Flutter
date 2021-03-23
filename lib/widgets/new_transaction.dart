@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
+import './adaptiveTextButton.dart';
 
 class NewTransaction extends StatefulWidget {
   final Function addTx;
@@ -86,6 +89,9 @@ class _NewTransactionState extends State<NewTransaction> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
+              // CupertinoTextField(
+              //   placeholder: "Title",
+              // ),
               TextField(
                 // onChanged: (val) {
                 //   titleInput = val;
@@ -102,9 +108,6 @@ class _NewTransactionState extends State<NewTransaction> {
                   decimal: true,
                   signed: true,
                 ),
-                // onEditingComplete: () {},
-                // onSubmitted: (_) {},
-                // onSubmitted: (_) => _submitData(),
               ),
               Container(
                 height: 70,
@@ -115,13 +118,7 @@ class _NewTransactionState extends State<NewTransaction> {
                           ? 'No date choosen'
                           : DateFormat.yMMMd().format(_selectedDate)),
                     ),
-                    TextButton(
-                      onPressed: _presentDatePicker,
-                      child: Text(
-                        _selectedDate == null ? 'Choose Date' : 'Change Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                    )
+                    AdaptiveTextButton('Choose Date', _presentDatePicker),
                   ],
                 ),
               ),
