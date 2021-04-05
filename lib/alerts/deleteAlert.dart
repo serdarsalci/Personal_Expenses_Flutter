@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../main.dart';
 
 void showAlertDialog(BuildContext context, String id, deleteConfirmed) {
   Widget cancelButton = TextButton(

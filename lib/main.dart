@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         // primaryColor: Colors.indigo,
         accentColor: Colors.amber,
-        fontFamily: 'FiraCode',
+        fontFamily: 'Quicksand-Medium',
         textTheme: ThemeData.light().textTheme.copyWith(
               headline6: TextStyle(
                 fontSize: 20,
@@ -46,8 +46,8 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(
-                  fontFamily: 'OpenSans',
-                  fontSize: 22,
+                  fontFamily: 'Quicksand-Medium',
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -66,7 +66,7 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MyHomePageState extends State<MyHomePage> with WidgetsBindingObserver {
   // final titleController = TextEditingController();
   // final amountController = TextEditingController();
 
@@ -111,7 +111,24 @@ class _MyHomePageState extends State<MyHomePage> {
 
   bool _showChart = false;
 
-  // String idToDelete;
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print('State is');
+    print(state);
+  }
+
+  @override
+  dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
 
   List<Transaction> get _recentTransactions {
     return _userTransactions
@@ -160,6 +177,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _buildLandscapeContent(MediaQueryData mediaQuery,
       PreferredSizeWidget appBar, Widget txListWidget) {
+    print('Landscape mode');
     return [
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -197,6 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   List<Widget> _buildPortraitContent(MediaQueryData mediaQuery,
       PreferredSizeWidget appBar, Widget txListWidget) {
+    print('Portrait mode');
     return [
       Container(
         height: (mediaQuery.size.height -
@@ -209,37 +228,44 @@ class _MyHomePageState extends State<MyHomePage> {
     ];
   }
 
+  Widget _buildIOSNavBar() {
+    return CupertinoNavigationBar(
+      middle: Text('Personal Expenses IOS'),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            child: Icon(CupertinoIcons.add),
+            onTap: () => _startAddNewTransaction(context),
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAndroidAppbar() {
+    return AppBar(
+      title: Text(
+        'Personal Expenses Android',
+        // style: TextStyle(fontFamily: 'OpenSans'),
+      ),
+      actions: [
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startAddNewTransaction(context),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandscape = mediaQuery.orientation == Orientation.landscape;
 
     //  APPBAR *****
-    final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: Text('Personal Expenses'),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  child: Icon(CupertinoIcons.add),
-                  onTap: () => _startAddNewTransaction(context),
-                )
-              ],
-            ),
-          )
-        : AppBar(
-            title: Text(
-              'Personal Expenses',
-              // style: TextStyle(fontFamily: 'OpenSans'),
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () => _startAddNewTransaction(context),
-              )
-            ],
-          );
+    final PreferredSizeWidget appBar =
+        Platform.isIOS ? _buildIOSNavBar() : _buildAndroidAppbar();
 
     final txListWidget = Container(
         height: (mediaQuery.size.height -
@@ -260,7 +286,7 @@ class _MyHomePageState extends State<MyHomePage> {
             if (isLandscape)
               ..._buildLandscapeContent(mediaQuery, appBar, txListWidget),
             if (!isLandscape)
-              ..._buildPortraitContent(mediaQuery, appBar, txListWidget),
+              ..._buildPortraitContent(mediaQuery, appBar, txListWidget)
           ],
         ),
       ),

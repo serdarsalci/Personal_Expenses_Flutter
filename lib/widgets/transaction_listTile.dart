@@ -34,13 +34,13 @@ class TransactionListTile extends StatelessWidget {
           })
         : Container(
             // color: Colors.purple.shade100,
-            child: ListView.builder(
-              itemBuilder: (ctx, index) {
-                return TransactionItem(
-                    transaction: transactions[index],
-                    deleteTransaction: deleteTransaction);
-              },
-              itemCount: transactions.length,
+            child: ListView(
+              children: transactions
+                  .map((tx) => TransactionItem(
+                      key: ValueKey(tx.id),
+                      transaction: tx,
+                      deleteTransaction: deleteTransaction))
+                  .toList(),
             ),
           );
   }

@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import './transaction_listTile.dart';
 import './new_transaction.dart';
-import './transaction_list.dart';
 import '../models/transaction.dart';
 
 class UserTransactions extends StatefulWidget {
-  Function _deleteTransaction;
+  // Function _deleteTransaction;
 
-  UserTransactions(this._deleteTransaction);
+  // UserTransactions(this._deleteTransaction);
 
   @override
   _UserTransactionsState createState() => _UserTransactionsState();
